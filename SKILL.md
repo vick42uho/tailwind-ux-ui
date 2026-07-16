@@ -5,11 +5,11 @@ description: |
   Use this skill when designing web interfaces, dashboards, documentation, and frontend components to ensure high-end aesthetics.
 license: Apache-2.0
 metadata:
-  version: v2
+  version: v3
   publisher: user-custom
 ---
 
-# Tailwind CSS Premium UX/UI Design System Guide
+# Tailwind CSS Premium UX/UI Design System Guide (v3)
 
 This skill represents a deep-dive, pixel-perfect study of the official **tailwindcss.com** documentation, marketing, and dashboard designs. It provides the exact implementation details, code blueprints, and styling parameters for recreating their premium, high-tech, developer-centric aesthetic.
 
@@ -31,9 +31,42 @@ Tailwind.com's aesthetic relies on very specific hex colors and semantic roles.
 * **The Brand Blue (Sky)**: `#0ea5e9` (`sky-500`). Used for active navigation links, commands, highlight text, and primary rings.
 * **Accent Neon (Violet/Pink)**: `#8b5cf6` (`violet-500`) and `#ec4899` (`pink-500`). Used to build glowing gradients on headers and buttons.
 
+### Text Contrast Hierarchy
+* **Primary Headings**: `text-slate-900` (Light) / `text-slate-100` (Dark)
+* **Body / Secondary text**: `text-slate-700` (Light) / `text-slate-300` (Dark)
+* **Muted Descriptions**: `text-slate-500` (Light) / `text-slate-400` or `text-slate-500` (Dark)
+* **Monospace / Code labels**: `text-slate-600` (Light) / `text-slate-400` (Dark)
+
 ---
 
-## 2. Signature Visual Element 1: Glowing Mesh Grids
+## 2. Tailwind CSS v4 CSS-First Configuration
+
+In Tailwind v4, settings have moved from `tailwind.config.js` to the main CSS file using directives. Use these blueprints for project setups.
+
+### A. Enabling Class-Based Dark Mode Selector
+By default, Tailwind v4 is media-query-based. To toggle dark mode via the `.dark` class, add this at the top of your CSS file:
+```css
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+```
+
+### B. Defining Custom Theme Variables and Utilities
+Define extensions inside `@theme` directly in CSS, and custom classes using `@utility`:
+```css
+@theme {
+  --color-brand-primary: #0ea5e9;
+  --color-brand-glow: rgba(14, 165, 233, 0.15);
+}
+
+@utility animate-blob {
+  animation: blob 7s infinite;
+}
+```
+
+---
+
+## 3. Signature Visual Element 1: Glowing Mesh Grids
 
 The background of the Tailwind homepage uses a repeating SVG grid pattern masked by radial gradients to create localized glows.
 
@@ -49,7 +82,7 @@ The background of the Tailwind homepage uses a repeating SVG grid pattern masked
 
 ---
 
-## 3. Signature Visual Element 2: Ambient Spotlights & Beams
+## 4. Signature Visual Element 2: Ambient Spotlights & Beams
 
 Spotlights are created using large, blurred background circles. Beams are thin glowing lines placed on the grid.
 
@@ -68,7 +101,7 @@ Thin lines that fade out at the edges, giving a high-tech circuit feel:
 
 ---
 
-## 4. Signature Visual Element 3: Gradient Border Glow Cards
+## 5. Signature Visual Element 3: Gradient Border Glow Cards
 
 Tailwind uses cards that look flat by default, but when hovered, display a colorful outer gradient border and a soft inner reflection.
 
@@ -88,7 +121,7 @@ Tailwind uses cards that look flat by default, but when hovered, display a color
 
 ---
 
-## 5. Typography Grid & Hierarchy (Inter Stack)
+## 6. Typography Grid & Hierarchy (Inter Stack)
 
 Tailwind.com uses **Inter** (sans-serif) as the primary font and **Geist Mono** / **Fira Code** for code blocks. It utilizes strict letter-spacing modifications to make headers feel tight and premium.
 
@@ -103,7 +136,38 @@ Tailwind.com uses **Inter** (sans-serif) as the primary font and **Geist Mono** 
 
 ---
 
-## 6. Layout Systems (Three-Column Layout & Sidebars)
+## 7. Interactive State Design (Keyboard Focus, Selection, Scrollbars)
+
+Premium user interfaces require styling micro-interactions.
+
+### A. Accessible Focus Outlines (Keyboard Navigation)
+Ensure interactive elements have consistent ring outlines instead of default browser outlines:
+```html
+<button class="focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-slate-900">
+  Click me
+</button>
+```
+
+### B. Custom Text Selection Highlights
+Add selection color bounds matching the page theme:
+```html
+<!-- Light and dark responsive selection -->
+<div class="selection:bg-blue-100 selection:text-blue-900 dark:selection:bg-sky-500/30 dark:selection:text-sky-200">
+  Selectable text content...
+</div>
+```
+
+### C. Subtle Scrollbars (Preventing layout shifts)
+Use clean, low-contrast scrollbars for overflowing containers like sidebars:
+```html
+<div class="overflow-y-auto scrollbar-thin scrollbar-thumb-slate-200 dark:scrollbar-thumb-slate-800 scrollbar-track-transparent">
+  Scrollable content...
+</div>
+```
+
+---
+
+## 8. Layout Systems (Three-Column Layout & Sidebars)
 
 The official documentation uses a highly optimized 3-column responsive layout.
 
@@ -127,7 +191,7 @@ The official documentation uses a highly optimized 3-column responsive layout.
 
 ---
 
-## 7. Interactive Code Editors & Tab Components
+## 9. Interactive Code Editors & Tab Components
 
 The website features embedded code panels with filename tabs and interactive elements.
 
@@ -161,9 +225,10 @@ The website features embedded code panels with filename tabs and interactive ele
 
 ---
 
-## 8. Common Pitfalls & Anti-Patterns
+## 10. Common Pitfalls & Anti-Patterns
 
 1. **Harsh Grid Borders**: Using `border-gray-500` or raw gray lines for layout. Instead, use soft opacity tints (e.g. `border-slate-200/80` or `border-slate-800`).
 2. **Missing Focus Outlines**: Removing default browser outlines without replacing them. Always use `focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-slate-950`.
 3. **Improper Rounded Corners**: Using standard `rounded` (4px) or `rounded-sm` for large layout cards. Modern premium cards look best at `rounded-2xl` (16px) or `rounded-3xl` (24px) for dashboard overlays.
 4. **Incorrect Spacing scale**: Applying random, unconstrained values like `p-[17px]` or `m-7`. Stick strictly to the standard tailwind spacing scale (`p-4`, `p-5`, `p-6`) to keep structural visual harmony intact.
+5. **Ignoring Selection & Focus States**: Leaving default blue system highlights and browser outlines intact, which breaks the dark mode palette harmony.
