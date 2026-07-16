@@ -1,271 +1,169 @@
 ---
 name: tailwind-ux-ui
 description: |
-  A comprehensive reference and design guidelines skill for implementing the premium, developer-centric UX/UI design system of tailwindcss.com.
+  A masterclass-level reference and design guidelines skill for implementing the premium, developer-centric UX/UI design system of tailwindcss.com.
   Use this skill when designing web interfaces, dashboards, documentation, and frontend components to ensure high-end aesthetics.
 license: Apache-2.0
 metadata:
-  version: v1
+  version: v2
   publisher: user-custom
 ---
 
 # Tailwind CSS Premium UX/UI Design System Guide
 
-This skill provides a deep, comprehensive guidelines and implementation ruleset for crafting web applications that match the premium visual design, layout architectures, and UX details of the official **tailwindcss.com** site.
+This skill represents a deep-dive, pixel-perfect study of the official **tailwindcss.com** documentation, marketing, and dashboard designs. It provides the exact implementation details, code blueprints, and styling parameters for recreating their premium, high-tech, developer-centric aesthetic.
 
 ---
 
-## 1. Core Principles (Refactoring UI Philosophy)
+## 1. System Tokens & Color Codes (The Branding Palette)
 
-The Tailwind aesthetic is founded on **systematic constraints**. Avoid arbitrary choices; rely on a strict set of design tokens to establish visual hierarchy, readability, and high-end polish.
+Tailwind.com's aesthetic relies on very specific hex colors and semantic roles.
 
-1. **Design in Grayscale First**: Establish layout, spacing, sizes, and font-weights before adding color. If a layout doesn't look clear in grayscale, color will not fix it.
-2. **De-emphasize, Don't Just Amplify**: To make something stand out, make the surrounding elements less prominent (e.g., reduce their font size, change text from `text-slate-900` to `text-slate-500`) instead of making the target element larger or brighter.
-3. **Treat CSS Classes as Implementation Details**: Define component-level clean boundaries (React/Vue/HTML components) using strict Tailwind configurations rather than inline chaotic styles (e.g., expose `<Button variant="primary">` instead of writing raw button utility blocks everywhere).
+### Neutral Colors
+* **The Dark Background**: `#020617` (Slate 950). Avoid flat black (`#000000`) or generic grays.
+* **The Surface Background**: `#0f172a` (Slate 900) or `#1e293b` (Slate 800) for nested panels.
+* **The Light Background**: `#f8fafc` (Slate 50) or `#ffffff` (White).
+* **The Subtle Borders**:
+  - Light mode: `border-slate-200/80` or `border-slate-100`
+  - Dark mode: `border-slate-800` or `border-white/5`
 
----
-
-## 2. Spacing & Rhythm (The 4px Grid System)
-
-Tailwind uses a logical `0.25rem = 4px` spacing scale. All components should align to this vertical and horizontal rhythm.
-
-### Recommended Spacing Scale
-- **Micro-spacing (2px–8px)**: `0.5` (2px), `1` (4px), `2` (8px). Use for compact list items, button-to-icon gaps, checkbox alignments, and small badges.
-- **Normal Padding & Gaps (12px–24px)**: `3` (12px), `4` (16px), `5` (20px), `6` (24px). Use for standard button paddings, card interior spacing, and input spacing.
-- **Layout Spacing (32px–64px+)**: `8` (32px), `10` (40px), `12` (48px), `16` (64px). Use for margins between large sections, container page paddings, and hero layouts.
-
-### Spacing Rules
-* **Consistent Padding Ratio**: Use wider horizontal padding than vertical padding for interactive components (e.g., Buttons: `px-4 py-2` or `px-5 py-2.5`; Inputs: `px-3.5 py-2`).
-* **Layout Flex & Grid**: Default to `gap-*` (e.g., `gap-4`, `gap-6`, `gap-8`) for flex/grid containers instead of applying margins to child components. This guarantees consistent rhythm.
+### Primary Branding Colors
+* **The Brand Blue (Sky)**: `#0ea5e9` (`sky-500`). Used for active navigation links, commands, highlight text, and primary rings.
+* **Accent Neon (Violet/Pink)**: `#8b5cf6` (`violet-500`) and `#ec4899` (`pink-500`). Used to build glowing gradients on headers and buttons.
 
 ---
 
-## 3. The Typography System (Scale & Letter Spacing)
+## 2. Signature Visual Element 1: Glowing Mesh Grids
 
-Typography must look sharp and intentional. Adjust letter-spacing (tracking) and line-height (leading) dynamically based on the font size.
+The background of the Tailwind homepage uses a repeating SVG grid pattern masked by radial gradients to create localized glows.
 
-### Typography Scale & Details
-| Size Class | Pixel Equivalent | Recommended Tracking | Recommended Leading | Primary Use Case |
-| :--- | :--- | :--- | :--- | :--- |
-| `text-xs` | 12px | `tracking-wide` | `leading-4` (16px) | Badges, Helper Text, Captions |
-| `text-sm` | 14px | `tracking-normal` | `leading-5` (20px) | Body Text, Button Labels, Inputs |
-| `text-base` | 16px | `tracking-normal` | `leading-6` (24px) | Article Body, Large Lists |
-| `text-lg` | 18px | `tracking-tight` | `leading-7` (28px) | Subheadings, Intro Paragraphs |
-| `text-xl` | 20px | `tracking-tight` | `leading-7` (28px) | Card Titles, Small Section Titles |
-| `text-2xl` | 24px | `tracking-tight` | `leading-8` (32px) | Section Headings |
-| `text-3xl` | 30px | `tracking-tight` | `leading-9` (36px) | Page Titles, Hero Subtitles |
-| `text-4xl` | 36px | `tracking-tighter` | `leading-10` (40px) | Main Landing Headers |
-| `text-5xl` to `9xl` | 48px to 128px | `tracking-tighter` | `leading-none` to `leading-tight` | Display text, Large Stats |
-
-### Typography Guidelines
-* **The "Tightening" Rule**: As font size increases, **always** reduce tracking. Text sizing `text-3xl` and above **MUST** use `tracking-tight` or `tracking-tighter`.
-* **The "Monospace" Rule**: All uppercase or monospace label text (e.g., `font-mono text-xs uppercase`) **MUST** use `tracking-wider` or `tracking-widest` to remain readable.
-* **Readable Body Width**: Restrict body text columns to a maximum width of `max-w-2xl` or `max-w-3xl` (approx. 60–80 characters per line) to prevent eye strain.
-
----
-
-## 4. The Color System (Semantics & Contrast)
-
-Tailwind CSS uses a shade scale from 50 (lightest) to 950 (darkest). High-end UIs use specific gray palettes and well-tinted accents.
-
-### Recommended Gray Families
-* **Slate (`slate`)**: Neutral gray with a cool blue undertone. Best for tech, SaaS, and developer portals (matches tailwindcss.com).
-* **Zinc (`zinc`)**: Extremely neutral, modern, clean gray. Best for minimalist, high-end design systems.
-* **Gray (`gray`)**: Classic, balanced gray. Safe choice for most standard applications.
-
-### Dynamic Contrast Ratios
-To achieve WCAG AA compatibility and premium aesthetics, follow these pairing scales:
-* **Light Mode Base**:
-  - Background: `bg-slate-50` or `bg-white`
-  - Main Heading: `text-slate-900`
-  - Body Text: `text-slate-700`
-  - Secondary/Muted: `text-slate-500`
-  - Borders: `border-slate-200` (or `border-slate-100` for inner grids)
-* **Dark Mode Base**:
-  - Background: `bg-slate-950` or `bg-zinc-950`
-  - Main Heading: `text-slate-100`
-  - Body Text: `text-slate-300`
-  - Secondary/Muted: `text-slate-400`
-  - Borders: `border-slate-800` (or `border-white/5`)
-
-### Accent Tints & Interactive States
-* **Primary Accent Color**: Select a vibrant primary (e.g., Indigo `bg-indigo-600`, Violet `bg-violet-600`, or Sky `bg-sky-500`).
-* **Active State Modifiers**:
-  - Hover: Darken/brighten by 100 steps (e.g., `bg-indigo-600 hover:bg-indigo-700` in light mode).
-  - Focus Ring: Always add a visible ring on keyboard focus: `focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 focus-visible:outline-none`.
-
----
-
-## 5. Elevation, Borders & Glassmorphism
-
-Avoid harsh dark borders. Utilize soft, natural-looking shadows and borders to create depth and structure.
-
-### Elevation (Shadows)
-* **Flat Surfaces**: No shadow, soft border `border border-slate-200/80` or `bg-slate-50`.
-* **Low Elevation (Buttons, Input Fields)**: `shadow-sm` or `shadow`.
-* **Medium Elevation (Cards, Dropdowns)**: `shadow-md` or `shadow-lg shadow-slate-200/50`.
-* **High Elevation (Modals, Overlays)**: `shadow-xl` or `shadow-2xl`.
-* **Soft Shadows**: Always blend shadows with light mode colors. Add opacity modifiers to make shadows softer: `shadow-slate-200/50` or `shadow-indigo-500/10`.
-
-### Radii & Borders
-* **Card Roundedness**: Use `rounded-xl` (12px) or `rounded-2xl` (16px) for cards, dialogs, and sections.
-* **Component Roundedness**: Use `rounded-lg` (8px) for buttons, inputs, and list items.
-* **Badges/Chips**: Use `rounded-full` for badges, tags, and avatars.
-* **Inner Radii Rule**: When nesting elements, the outer element's radius should be larger than the inner element's radius (`outer_radius = inner_radius + padding`).
-
-### Glassmorphism (Blur Effects)
-Create premium, overlay panels using background opacity combined with backdrop blur:
-- Class combination: `bg-white/80 backdrop-blur-md border border-slate-200/50` (Light mode)
-- Class combination: `bg-slate-950/70 backdrop-blur-md border border-white/5` (Dark mode)
-
----
-
-## 6. Dark Mode Architecture
-
-Tailwind CSS dark mode uses the `dark:` prefix. Build a deep, glowing slate/zinc environment instead of a flat black look.
-
-### Checklist for Dark Mode
-1. **Background Hierarchy**:
-   - Page Background: `bg-slate-950`
-   - Card Background: `bg-slate-900/50` or `bg-slate-900`
-   - Inner Items (table rows, inputs): `bg-slate-950/50` or `bg-slate-900/30`
-2. **Text Hierarchy**:
-   - Title: `dark:text-white`
-   - Body: `dark:text-slate-300`
-   - Muted Labels: `dark:text-slate-400`
-3. **Borders**:
-   - Replace gray borders with thin, transparent white borders: `dark:border-white/10` or `dark:border-slate-800`.
-4. **Accent Glows**:
-   - Use radial glows on cards: `bg-radial-glow` using background-gradients and radial-masking (see code template below).
-
----
-
-## 7. Transitions & Micro-Interactions
-
-An interface feels alive when interactions are smooth. Always add micro-animations for hover, focus, and state transitions.
-
-* **Transition Standard**: Apply `transition-all duration-200 ease-in-out` (or `duration-150`) to any element that changes color, shadow, or transform on hover.
-* **Transformations on Hover**:
-  - Translate upward slightly: `hover:-translate-y-0.5`
-  - Scale up slightly: `hover:scale-[1.015]`
-  - Shadow expansion: `shadow-md hover:shadow-xl`
-* **Interactive Lists**: When items in a list are clickable, show a subtle hover background: `hover:bg-slate-50 dark:hover:bg-slate-900/50`.
-
----
-
-## 8. Premium Visual Details (Tailwind CSS Signature Glows)
-
-The Tailwind website is famous for its glowing grids and neon radial gradients. You can implement these details using simple utility classes.
-
-### SVG Grid Backdrop Pattern
-Create a mesh grid backdrop with a fading radial mask:
+### A. Dark Mode Repeating Grid Background
 ```html
-<div class="absolute inset-0 -z-10 h-full w-full bg-white bg-[radial-gradient(#e2e8f0_1px,transparent_1px)] [background-size:16px_16px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_100%)]"></div>
-```
-For dark mode:
-```html
-<div class="absolute inset-0 -z-10 h-full w-full bg-slate-950 bg-[radial-gradient(#1e293b_1px,transparent_1px)] [background-size:24px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_60%,transparent_100%)]"></div>
+<div class="absolute inset-0 -z-10 h-full w-full bg-slate-950 bg-[linear-gradient(to_right,#1e293b_1px,transparent_1px),linear-gradient(to_bottom,#1e293b_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-80"></div>
 ```
 
-### Neon Radial Glow Background
-Create a soft color wash background element:
+### B. Light Mode Repeating Grid Background
 ```html
-<div class="absolute top-0 left-1/4 -z-10 h-[400px] w-[600px] rounded-full bg-indigo-500/10 blur-[120px] filter"></div>
-<div class="absolute top-20 right-1/4 -z-10 h-[350px] w-[500px] rounded-full bg-purple-500/10 blur-[100px] filter"></div>
+<div class="absolute inset-0 -z-10 h-full w-full bg-white bg-[linear-gradient(to_right,#f1f5f9_1px,transparent_1px),linear-gradient(to_bottom,#f1f5f9_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]"></div>
 ```
 
 ---
 
-## 9. Code Templates (Copy-Paste Ready Components)
+## 3. Signature Visual Element 2: Ambient Spotlights & Beams
 
-### A. The Classic 3-Column Documentation Layout
+Spotlights are created using large, blurred background circles. Beams are thin glowing lines placed on the grid.
+
+### A. Ambient Glow Spotlight
 ```html
-<div class="min-h-screen bg-white text-slate-900 dark:bg-slate-950 dark:text-slate-100 flex flex-col">
-  <!-- Top Navigation Header -->
-  <header class="sticky top-0 z-40 w-full border-b border-slate-200 bg-white/80 backdrop-blur-md dark:border-slate-800 dark:bg-slate-950/80">
-    <div class="mx-auto flex h-16 max-w-8xl items-center justify-between px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center gap-6">
-        <span class="text-xl font-bold tracking-tight text-slate-900 dark:text-white flex items-center gap-2">
-          <div class="h-6 w-6 rounded-md bg-gradient-to-tr from-indigo-500 to-violet-500"></div>
-          BrandConsole
-        </span>
-      </div>
-      <div class="flex items-center gap-4">
-        <!-- Command Search Bar Mockup -->
-        <button class="hidden lg:flex items-center gap-3 rounded-lg border border-slate-200 bg-slate-50 px-3 py-1.5 text-sm text-slate-400 hover:border-slate-300 dark:border-slate-800 dark:bg-slate-900/50 dark:hover:border-slate-700">
-          <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-          Search documentation...
-          <kbd class="font-sans font-semibold text-xs text-slate-400 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-1.5 py-0.5 rounded">Ctrl K</kbd>
-        </button>
-      </div>
-    </div>
-  </header>
-
-  <!-- Sidebar & Grid Area -->
-  <div class="mx-auto w-full max-w-8xl flex-grow lg:flex px-4 sm:px-6 lg:px-8">
-    <!-- Left Navigation Sidebar -->
-    <aside class="hidden lg:block lg:w-64 lg:shrink-0 border-r border-slate-200 dark:border-slate-900 pr-6 py-8 sticky top-16 h-[calc(100vh-4rem)] overflow-y-auto">
-      <nav class="space-y-8">
-        <div>
-          <h3 class="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3">Getting Started</h3>
-          <ul class="space-y-2">
-            <li><a href="#" class="block text-sm font-medium text-indigo-600 dark:text-indigo-400">Introduction</a></li>
-            <li><a href="#" class="block text-sm text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-100 transition-colors">Installation</a></li>
-            <li><a href="#" class="block text-sm text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-100 transition-colors">Configuration</a></li>
-          </ul>
-        </div>
-      </nav>
-    </aside>
-
-    <!-- Main Content Area -->
-    <main class="flex-grow min-w-0 lg:px-8 py-8">
-      <div class="max-w-3xl">
-        <h1 class="text-3xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-4xl mb-4">Core Architecture</h1>
-        <p class="text-lg text-slate-600 dark:text-slate-400 leading-relaxed mb-6">Learn how to customize and scale your design using utility classes.</p>
-        <div class="rounded-xl border border-slate-200/80 bg-slate-50/50 p-6 dark:border-slate-800 dark:bg-slate-900/30">
-          <p class="text-sm leading-relaxed text-slate-700 dark:text-slate-300">Inner documentation card example content.</p>
-        </div>
-      </div>
-    </main>
-
-    <!-- Right Sidebar Table of Contents -->
-    <aside class="hidden xl:block xl:w-64 xl:shrink-0 pl-6 py-8 sticky top-16 h-[calc(100vh-4rem)] overflow-y-auto">
-      <h3 class="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3">On this page</h3>
-      <ul class="space-y-2.5 text-sm border-l border-slate-200 dark:border-slate-800 pl-4">
-        <li><a href="#" class="block text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-100 transition-colors">Overview</a></li>
-        <li><a href="#" class="block text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-100 transition-colors">Quick start guide</a></li>
-        <li><a href="#" class="block text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-100 transition-colors">Configuration properties</a></li>
-      </ul>
-    </aside>
-  </div>
-</div>
+<!-- Large blurred color wash -->
+<div class="absolute top-0 left-1/4 -z-10 h-[500px] w-[700px] rounded-full bg-sky-500/10 blur-[120px] filter animate-pulse"></div>
+<div class="absolute top-10 right-1/4 -z-10 h-[450px] w-[600px] rounded-full bg-violet-500/10 blur-[100px] filter animate-pulse" style="animation-delay: 2s;"></div>
 ```
 
-### B. Premium Interactive Card with Glow
+### B. Horizontal Glowing Laser Beam
+Thin lines that fade out at the edges, giving a high-tech circuit feel:
 ```html
-<div class="relative group overflow-hidden rounded-2xl border border-slate-200/80 bg-white p-6 transition-all duration-300 ease-in-out hover:-translate-y-1 hover:shadow-xl hover:shadow-slate-200/50 dark:border-slate-800 dark:bg-slate-900 dark:hover:border-slate-700/80 dark:hover:shadow-indigo-500/5">
-  <!-- Subtle glowing overlay on hover -->
-  <div class="absolute -inset-px -z-10 rounded-2xl bg-gradient-to-r from-indigo-500 to-violet-500 opacity-0 blur transition-all duration-300 group-hover:opacity-10 group-hover:blur-md"></div>
+<div class="absolute left-0 right-0 top-32 h-[1px] bg-gradient-to-r from-transparent via-sky-500/40 to-transparent"></div>
+```
+
+---
+
+## 4. Signature Visual Element 3: Gradient Border Glow Cards
+
+Tailwind uses cards that look flat by default, but when hovered, display a colorful outer gradient border and a soft inner reflection.
+
+```html
+<div class="relative group overflow-hidden rounded-2xl border border-slate-200/80 bg-white p-6 transition-all duration-300 dark:border-slate-800 dark:bg-slate-900/60 hover:-translate-y-0.5">
+  <!-- Glowing gradient background on hover (under the card) -->
+  <div class="absolute -inset-px -z-10 rounded-2xl bg-gradient-to-r from-sky-500 to-indigo-500 opacity-0 blur transition-all duration-300 group-hover:opacity-20 group-hover:blur-md"></div>
   
-  <div class="flex items-center gap-4 mb-4">
-    <div class="flex h-10 w-10 items-center justify-between rounded-lg bg-indigo-50/80 text-indigo-600 dark:bg-indigo-950/50 dark:text-indigo-400 pl-2.5">
-      <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+  <!-- Subtle border highlight -->
+  <div class="absolute inset-[1px] rounded-[15px] bg-gradient-to-b from-white/10 to-transparent pointer-events-none"></div>
+
+  <!-- Content -->
+  <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-2">Card Title</h3>
+  <p class="text-sm text-slate-500 dark:text-slate-400">Card content text.</p>
+</div>
+```
+
+---
+
+## 5. Typography Grid & Hierarchy (Inter Stack)
+
+Tailwind.com uses **Inter** (sans-serif) as the primary font and **Geist Mono** / **Fira Code** for code blocks. It utilizes strict letter-spacing modifications to make headers feel tight and premium.
+
+### Typographical Rules
+* **The Header Tightening Rule**: Any font size `text-3xl` and above **MUST** use `tracking-tight` or `tracking-tighter`.
+  * *Example*: `<h1 class="text-4xl font-extrabold tracking-tighter leading-none">`
+* **The Monospace Badge Rule**: All monospace tags or labels **MUST** use uppercase, small font sizes, and wide letter spacing.
+  * *Example*: `<span class="font-mono text-[10px] font-bold tracking-widest uppercase text-sky-500">`
+* **Optimal Line Height**:
+  - Body (`text-sm` or `text-base`): Use `leading-relaxed` or `leading-7` (approx 1.6x font size).
+  - Headings (`text-2xl` or above): Use `leading-none` or `leading-tight` (approx 1.1x–1.2x font size).
+
+---
+
+## 6. Layout Systems (Three-Column Layout & Sidebars)
+
+The official documentation uses a highly optimized 3-column responsive layout.
+
+```
++-------------------------------------------------------------+
+|                        Top Header                           |
++-------------------------------------------------------------+
+|  Left Sidebar  |      Center Content      |  Right Outline  |
+|  (Nav tree)    |   (High readability)    |  (Anchor list)  |
+|  w-64          |   max-w-3xl             |  w-64           |
+|  fixed border  |   prose-styles          |  hidden on sm   |
++-------------------------------------------------------------+
+```
+
+### Key Classes for Docs Layout
+- **Sticky Header**: `sticky top-0 z-40 w-full border-b border-slate-200/80 bg-white/80 backdrop-blur-md dark:border-slate-800 dark:bg-slate-950/80`
+- **Container**: `mx-auto max-w-8xl px-4 sm:px-6 lg:px-8`
+- **Grid Layout**: `lg:flex lg:gap-8`
+- **Sidebar**: `hidden lg:block lg:w-64 lg:shrink-0 py-8 sticky top-16 h-[calc(100vh-4rem)] overflow-y-auto`
+- **Main prose area**: `flex-grow min-w-0 max-w-3xl py-8`
+
+---
+
+## 7. Interactive Code Editors & Tab Components
+
+The website features embedded code panels with filename tabs and interactive elements.
+
+```html
+<div class="overflow-hidden rounded-2xl bg-slate-900 border border-white/10 shadow-2xl">
+  <!-- Editor Tab Header -->
+  <div class="flex items-center justify-between px-4 py-3 bg-slate-950 border-b border-white/5">
+    <div class="flex items-center gap-2">
+      <!-- Decorative Window Dots -->
+      <span class="h-3 w-3 rounded-full bg-red-500/20 border border-red-500/30"></span>
+      <span class="h-3 w-3 rounded-full bg-yellow-500/20 border border-yellow-500/30"></span>
+      <span class="h-3 w-3 rounded-full bg-green-500/20 border border-green-500/30"></span>
+      <!-- File Name Tab -->
+      <span class="ml-4 font-mono text-xs text-slate-400">CardPreview.jsx</span>
     </div>
-    <h3 class="text-lg font-semibold tracking-tight text-slate-900 dark:text-white">API Acceleration</h3>
+    <!-- Tab Action Button -->
+    <button class="text-xs text-slate-500 hover:text-slate-300 flex items-center gap-1">
+      <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
+      Copy
+    </button>
   </div>
-  <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-4">Speed up your backend deployments globally with edge database routing.</p>
-  <div class="flex items-center gap-1.5 text-sm font-semibold text-indigo-600 dark:text-indigo-400 group-hover:text-indigo-700 dark:group-hover:text-indigo-300 transition-colors">
-    Explore feature
-    <svg class="h-4 w-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+  
+  <!-- Editor Content Area -->
+  <div class="p-5 overflow-x-auto">
+    <pre class="font-mono text-xs leading-relaxed text-slate-350"><code><span class="text-pink-500">&lt;div</span> <span class="text-purple-400">className</span>=<span class="text-emerald-400">"flex p-6 font-sans bg-slate-900"</span><span class="text-pink-500">&gt;</span>
+  <span class="text-pink-500">&lt;div</span> <span class="text-purple-400">className</span>=<span class="text-emerald-400">"flex-none w-48 relative"</span><span class="text-pink-500">&gt;</span>
+    <span class="text-slate-500">&lt;!-- Code continued... --&gt;</span></code></pre>
   </div>
 </div>
 ```
 
 ---
 
-## 10. Common Pitfalls & Anti-Patterns
+## 8. Common Pitfalls & Anti-Patterns
 
-1. **Harsh Pure Colors**: Using `bg-black` or `text-black` on bright backgrounds, or `border-gray-500` for layout borders. Instead, use soft opacity tints (e.g., `border-slate-200` or `border-slate-800`).
-2. **Missing Focus Rings**: Relying on default browser blue focus outlines or removing focus outlines entirely. Use `focus-visible:ring-2 focus-visible:ring-indigo-500` for polished focus indications.
-3. **Random Unconstrained Values**: Using classes like `h-[340px]`, `w-[512px]`, or `p-[17px]`. Instead, stick to standard spacing increments like `h-80`, `w-128`, or `p-4` to preserve the visual system integrity.
-4. **Header Scale Inconsistencies**: Setting headings to large sizes (`text-3xl` or `text-4xl`) but keeping letter spacing wide (`tracking-normal`). Remember: large fonts require **tight** letter-spacing (`tracking-tight` or `tracking-tighter`).
+1. **Harsh Grid Borders**: Using `border-gray-500` or raw gray lines for layout. Instead, use soft opacity tints (e.g. `border-slate-200/80` or `border-slate-800`).
+2. **Missing Focus Outlines**: Removing default browser outlines without replacing them. Always use `focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-slate-950`.
+3. **Improper Rounded Corners**: Using standard `rounded` (4px) or `rounded-sm` for large layout cards. Modern premium cards look best at `rounded-2xl` (16px) or `rounded-3xl` (24px) for dashboard overlays.
+4. **Incorrect Spacing scale**: Applying random, unconstrained values like `p-[17px]` or `m-7`. Stick strictly to the standard tailwind spacing scale (`p-4`, `p-5`, `p-6`) to keep structural visual harmony intact.
